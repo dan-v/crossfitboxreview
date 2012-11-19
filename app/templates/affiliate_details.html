@@ -1,0 +1,28 @@
+
+<div class="container">
+    <div class="row">   
+        <div class="span3 offset1"> 
+            <h4><a href="/gym/{{ affiliate_info.id }}">{{ affiliate_info.name }}</a></h4>
+        </div>   
+    </div>  
+    <div class="row">  
+        <div class="span3 offset1"> 
+            <dl class="dl">
+                {% if affiliate_rating %}
+                    <dt>Overall Rating</dt>
+                    <dd><strong>{{ affiliate_rating }}/5</strong> with <strong>{{ total_reviews }}</strong> reviews. <a href="/review/{{affiliate_info.id}}"><button class="btn btn-small btn-info pull-right" type="button">Add Review</button></a></dd>
+                {% else %}
+                    <dt>Overall Rating</dt>
+                    <dd>No ratings yet. <a href="/review/{{affiliate_info.id}}"><button class="btn btn-small btn-inverse pull-right" type="button">Add Review</button></a></dd>
+                {% endif %}
+            </dl>
+
+            {% if latest_review %}
+                <p><strong>Latest Review</strong><small> ({{(latest_review.review_date).strftime("%m-%d-%Y")}})</small>: <strong>{{latest_review.rating_overall}}/5</strong></p>
+                <div class="reviewbox">
+                    {{latest_review.comment}}
+                </div>
+            {% endif %}
+        </div>  
+    </div>  
+</div>

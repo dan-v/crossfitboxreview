@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block extrascripts %}
+        <link href="{{ static('js/jquery-rating/jquery.rating.css') }}" rel="stylesheet">
+        <script src="{{ static('js/jquery-rating/jquery.rating.js') }}"></script>
+        <script>
+            $(function() {
+                $(".rating").rating();
+            });
+        </script>
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span5 offset3">
+        <form class="form-horizontal" action="" method="post" name="review">
+            <h3><a href="/gym/{{affiliate_info.id}}">{{affiliate_info.name}}</a> Review</h3><hr>
+            {{form.hidden_tag()}}
+            
+            <div class="control-group">
+                <label class="control-label">Overall Rating</label>
+                <div class="controls">
+                    <select id="rating" name="rating" class="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Equipment Rating</label>
+                <div class="controls">
+                    <select id="rating_equipment" name="rating_equipment" class="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label">Instructor Rating</label>
+                <div class="controls">
+                    <select id="rating_instructor" name="rating_instructor" class="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label">Your Review</label>
+                <div class="controls">
+                    <textarea class="field span12" name="comment" id="textarea" rows="6" placeholder="Enter review here"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Recaptcha</label>
+                <div class="controls">
+                    <!--{{form.recaptcha}}-->
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <button type="submit" class="btn btn-large btn-primary">Submit Review</button>
+                </div>
+            </div>
+        </form>
+
+                    
+    </div>
+</div>
+{% endblock %}

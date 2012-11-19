@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block extrascripts %}
+        <link href="{{ static('rateit/rateit.css') }}" rel="stylesheet">
+        <script src="{{ static('rateit/jquery.rateit.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span11 offset1">
+        <div class="hero-unit">
+            <h1>{{ affiliate_info.name }}</h1>
+        </div>
+    </div><!--/span-->
+</div><!--/row-->
+<div class="row-fluid">
+    <div class="span8 offset1">
+        <h2>Reviews<a href="/review/{{affiliate_info.id}}"><button class="btn btn-large btn-info pull-right" type="button">Add Review</button></a></h2>
+        {% for review in reviews.items %}
+            <small><strong>{{ (review.review_date).strftime("%m-%d-%Y") }}</strong></small>
+                Overall: <div class="rateit" data-rateit-value="{{ review.rating_overall }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                Equipment: <div class="rateit" data-rateit-value="{{ review.rating_equipment }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                Instructor: <div class="rateit" data-rateit-value="{{ review.rating_instructor }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            </br>
+            <p class="well well-small">{{ review.comment }}</p>
+        {% endfor %} 
+        <div class="pagination">
+          <ul>
+            {% if reviews.has_prev %}
+                <li><a href="{{ url_for('gym', affiliate_id = affiliate_info.id, page = reviews.prev_num) }}">< Newer Reviews</a></li>
+            {% else %}
+                <li class="disabled"><a href="#">< Newer Reviews</a></li>
+            {% endif %}
+            
+            {% if reviews.has_next %}
+                <li><a href="{{ url_for('gym', affiliate_id = affiliate_info.id, page = reviews.next_num) }}">Older Reviews ></a></li>
+            {% else %}
+                <li class="disabled"><a href="#">Older Reviews ></a></li>
+            {% endif %}
+          </ul>
+        </div>       
+    </div><!--/span-->
+    <div class="span3">
+          <h2>Details</h2>
+            {% if affiliate_info.website %}
+                <p>Website: <a href="{{ affiliate_info.website }}">{{ affiliate_info.website }}</a></p>
+            {% endif %} 
+            {% if affiliate_info.phone %}
+                <p>Phone: {{ affiliate_info.phone }}</p>
+            {% endif %} 
+            {% if affiliate_info.address %}
+                <p>Address: {{ affiliate_info.address }}</p>
+            {% endif %} 
+    </div><!--/span-->
+
+</div><!--/row-->
+{% endblock %}
