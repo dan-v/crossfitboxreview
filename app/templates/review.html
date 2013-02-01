@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block extrascripts %}
-        <link href="{{ static('js/jquery-rating/jquery.rating.css') }}" rel="stylesheet">
-        <script src="{{ static('js/jquery-rating/jquery.rating.js') }}"></script>
-        <script>
-            $(function() {
-                $(".rating").rating();
+        <script type="text/javascript">
+            $(function () { 
+                $('#rateit_overall').rateit({ max: 5, step: 1, backingfld: '#rating' });
+                $('#rateit_equipment').rateit({ max: 5, step: 1, backingfld: '#rating_equipment' });
+                $('#rateit_instructor').rateit({ max: 5, step: 1, backingfld: '#rating_instructor' });
             });
-        </script>
+        </script>    
 {% endblock %}
 
 {% block content %}
@@ -20,37 +20,22 @@
             <div class="control-group">
                 <label class="control-label">Overall Rating</label>
                 <div class="controls">
-                    <select id="rating" name="rating" class="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+                    <input type="hidden" id="rating" name="rating">
+                    <div id="rateit_overall"></div>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Equipment Rating</label>
                 <div class="controls">
-                    <select id="rating_equipment" name="rating_equipment" class="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+                    <input type="hidden" id="rating_equipment" name="rating_equipment">
+                    <div id="rateit_equipment"></div>
                 </div>
             </div> 
             <div class="control-group">
                 <label class="control-label">Instructor Rating</label>
                 <div class="controls">
-                    <select id="rating_instructor" name="rating_instructor" class="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+                    <input type="hidden" id="rating_instructor" name="rating_instructor">
+                    <div id="rateit_instructor"></div>
                 </div>
             </div> 
             <div class="control-group">

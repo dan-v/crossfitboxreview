@@ -76,7 +76,6 @@
               }
             });
 
-
         });
 
         function success(position) {
@@ -93,6 +92,7 @@
                  aiw.setContent(data);       
               }   
             });
+
             var currentCenter = map.getCenter();
             var currentZoom = map.getZoom();
             $.cookie('map_lat', currentCenter.lat(), { expires: 7, path: '/' });
@@ -111,6 +111,7 @@
                   aiw.setContent("Loading...");
                   aiw.open(map, marker);
                   load_content(marker);
+                  
               });
 
             return marker;

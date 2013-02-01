@@ -40,7 +40,7 @@ def affiliate_details(affiliate_id=None):
     if affiliate_reviews.count() > 0:
         for review in affiliate_reviews:
             affiliate_rating += review.rating_overall
-        final_rating = affiliate_rating / affiliate_reviews.count()
+        final_rating = (affiliate_rating / affiliate_reviews.count()) * 1.00
 
     else:
         final_rating = None
