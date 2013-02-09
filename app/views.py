@@ -1,23 +1,8 @@
-from flask import render_template, flash, redirect, request, session, url_for
+from flask import render_template, flash, redirect, request
 from app import app, db, models
 from forms import ReviewForm
 import datetime
 from sqlalchemy import *
-from flask_oauth import OAuth
-
-FACEBOOK_APP_ID = '556465061044186'
-FACEBOOK_APP_SECRET = 'c63a760215c2722f6abd3936c1f53d7d'
-oauth = OAuth()
-
-facebook = oauth.remote_app('facebook',
-    base_url='https://graph.facebook.com/',
-    request_token_url=None,
-    access_token_url='/oauth/access_token',
-    authorize_url='https://www.facebook.com/dialog/oauth',
-    consumer_key=FACEBOOK_APP_ID,
-    consumer_secret=FACEBOOK_APP_SECRET,
-    request_token_params={'scope': 'email'}
-)
 
 @app.route('/')
 @app.route('/index')
@@ -46,30 +31,6 @@ def review(affiliate_id=None):
     return render_template('review.html', 
         affiliate_info = a,
         form = form)
-
-@app.route('/login')
-def login():
-    return facebook.authorize(callback=url_for('facebook_authorized',
-        next=request.args.get('next') or request.referrer or None,
-        _external=True))
-
-@app.route('/login/authorized')
-@facebook.authorized_handler
-def facebook_authorized(resp):
-    if resp is None:
-        return 'Access denied: reason=%s error=%s' % (
-            request.args['error_reason'],
-            request.args['error_description']
-        )
-    session['oauth_token'] = (resp['access_token'], '')
-    me = facebook.get('/me')
-    return 'Logged in as id=%s name=%s redirect=%s' % \
-        (me.data['id'], me.data['name'], request.args.get('next'))
-
-
-@facebook.tokengetter
-def get_facebook_oauth_token():
-    return session.get('oauth_token')
 
 @app.route('/affiliate_details/<affiliate_id>', methods = ['GET'])
 def affiliate_details(affiliate_id=None):
